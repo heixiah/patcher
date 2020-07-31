@@ -1,8 +1,8 @@
 <idea-plugin>
-    <id>com.ldx.PatcherDialog</id>
+    <id>com.xh.PatcherDialog</id>
     <name>patcher</name>
-    <version>2.12</version>
-    <vendor email="LiangDongXing.cn@outlook.com" url="https://github.com/Liang-Dongxing/patcher">DongXing</vendor>
+    <version>2.13</version>
+    <vendor email="286750956@qq.com" url="https://github.com/heixiah/patcher">xiahua</vendor>
     <description>
         Create Java SE and Java EE project patch files.
     </description>
@@ -11,7 +11,7 @@
     <idea-version since-build="181" until-build="201.*"/>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-         on how to target different products -->
+		 on how to target different products -->
     <depends>com.intellij.modules.lang</depends>
     <depends>com.intellij.modules.ultimate</depends>
     <depends>com.intellij.modules.java</depends>
@@ -25,6 +25,8 @@
         <!--    设置 idea Action    -->
         <action id="ldx.patcher" class="com.CreatePatcherAction" text="Create Patcher" description="Create Java SE and Java EE project patch files.">
             <add-to-group group-id="ProjectViewPopupMenu" anchor="first"/>
+            <add-to-group group-id="Vcs.RepositoryChangesBrowserMenu" anchor="first"/><!-- Version Control-Log  -->
+            <add-to-group group-id="ChangesViewPopupMenu" anchor="first"/>      <!-- Version Control-Local Change  -->
             <keyboard-shortcut first-keystroke="shift alt E" keymap="$default"/>
         </action>
     </actions>

@@ -103,6 +103,7 @@
               <model>
                 <item value="webapp"/>
                 <item value="WebRoot"/>
+                <item value="WebContent"/>
               </model>
             </properties>
           </component>
