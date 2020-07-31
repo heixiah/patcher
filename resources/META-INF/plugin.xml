@@ -1,14 +1,16 @@
 <idea-plugin>
     <id>com.xh.PatcherDialog</id>
     <name>patcher</name>
-    <version>2.13</version>
+    <version>2020.2</version>
     <vendor email="286750956@qq.com" url="https://github.com/heixiah/patcher">xiahua</vendor>
+<!--    来源于https://github.com/Liang-Dongxing/patcher-->
+<!--    <vendor email="LiangDongXing.cn@outlook.com" url="https://github.com/Liang-Dongxing/patcher">DongXing</vendor>-->
     <description>
         Create Java SE and Java EE project patch files.
     </description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="181" until-build="201.*"/>
+    <idea-version since-build="181" until-build="202.*"/>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
 		 on how to target different products -->
