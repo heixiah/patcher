@@ -1,4 +1,5 @@
 <idea-plugin>
+<!--    避免被idea提示更新插件了-->
     <id>com.xh.PatcherDialog</id>
     <name>patcher</name>
     <version>2020.2</version>
@@ -6,7 +7,10 @@
 <!--    来源于https://github.com/Liang-Dongxing/patcher-->
 <!--    <vendor email="LiangDongXing.cn@outlook.com" url="https://github.com/Liang-Dongxing/patcher">DongXing</vendor>-->
     <description>
-        Create Java SE and Java EE project patch files.
+        <![CDATA[
+            <p>Create Java SE and Java EE project patch files.</p>
+            <a href="https://github.com/heixiah/patcher">Github</a>
+        ]]>
     </description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
