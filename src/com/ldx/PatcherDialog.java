@@ -2,8 +2,9 @@ package com.ldx;
 
 import java.time.format.DateTimeFormatter;
 
+import com.intellij.openapi.vfs.VfsUtilCore;
+import com.intellij.openapi.vfs.VirtualFileVisitor;
 import com.jgoodies.common.base.Strings;
-import com.intellij.ide.ui.EditorOptionsTopHitProvider;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.notification.*;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -19,13 +20,9 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ModuleRootManager;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.openapi.vfs.newvfs.impl.VirtualDirectoryImpl;
 import com.intellij.ui.TextFieldWithStoredHistory;
 import com.intellij.ui.components.JBList;
-import com.intellij.util.Url;
-import com.intellij.util.UrlImpl;
-import org.apache.commons.lang.StringUtils;
-import org.kohsuke.rngom.util.Uri;
+
 import sun.awt.SunToolkit;
 
 import javax.swing.*;
@@ -33,18 +30,17 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URL;
 import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Liang
@@ -66,7 +62,7 @@ public class PatcherDialog extends JDialog {
 
     private Module[] modules;
     private Project project;
-    private List<VirtualFile> patcherFiles = new LinkedList<>();
+    private Set<VirtualFile> patcherFiles = new LinkedHashSet<>();
 
     private PropertiesComponent propertiesComponent;
 
@@ -107,8 +103,19 @@ public class PatcherDialog extends JDialog {
         super.setVisible(true);
         super.requestFocus();
     }
-
-
+    private List<VirtualFile> getAllSubFiles(VirtualFile virtualFile) {
+        List<VirtualFile> list = new ArrayList<>();
+        VfsUtilCore.visitChildrenRecursively(virtualFile, new VirtualFileVisitor<VirtualFile>() {
+            @Override
+            public boolean visitFile(@NotNull VirtualFile file) {
+                if (!file.isDirectory()) {
+                    list.add(file);
+                }
+                return super.visitFile(file);
+            }
+        });
+        return list;
+    }
     PatcherDialog(AnActionEvent event) {
         // 获取当前Project对象
         project = event.getProject();
@@ -117,7 +124,7 @@ public class PatcherDialog extends JDialog {
         assert patcherDirectoryAndFiles != null;
         for (VirtualFile patcherDirectoryAndFile : patcherDirectoryAndFiles) {
             if (patcherDirectoryAndFile.isDirectory()) {
-                patcherFiles.addAll(Arrays.asList(patcherDirectoryAndFile.getChildren()));
+                patcherFiles.addAll(getAllSubFiles(patcherDirectoryAndFile));
             } else {
                 patcherFiles.add(patcherDirectoryAndFile);
             }
